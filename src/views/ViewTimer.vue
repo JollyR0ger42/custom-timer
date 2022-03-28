@@ -31,7 +31,6 @@
 
 <script>
 import AppTimerCard from '@/components/AppTimerCard.vue'
-import localStorage from '@/localStorageApi.js'
 import db from '@/postgresApi.js'
 import {defineAsyncComponent, markRaw} from 'vue'
 
@@ -56,7 +55,7 @@ export default {
   },
 
   mounted () {
-    this.fetchTimers()
+    this.getTimers()
   },
 
   methods: {
@@ -90,10 +89,13 @@ export default {
     addTimerPopup () {
       this.$emit('toggle-popup', this.AppNewTimerForm)
     },
-    fetchTimers () {
+    getTimers () {
       this.loading = true
       db.getTimers()
-        .then(timers => this.timers = timers)
+        .then(timers => {
+          if (timers.error) console.log(timers.error)
+          else this.timers = timers
+        })
         .finally(() => this.loading = false)
     },
     createNewTimer (newTimer) {
