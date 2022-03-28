@@ -3,7 +3,6 @@
     class="app"
   >
     <app-header
-      class="app__header"
       @toggle-sidebar="showSidebar = !showSidebar"
     ></app-header>
 
@@ -82,10 +81,6 @@ export default {
   background-color: $base-background;
   display: flex;
   flex-direction: column;
-
-  &__header {
-    height: 5%;
-  }
 
   &__content {
     display: flex;
