@@ -31,7 +31,7 @@
 
 <script>
 import AppTimerCard from '@/components/AppTimerCard.vue'
-import db from '@/postgresApi.js'
+import Timer from '@/services/timer.service.js'
 import {defineAsyncComponent, markRaw} from 'vue'
 
 export default {
@@ -62,7 +62,7 @@ export default {
     removeTimer (idx) {
       this.loading = true
       const id = this.timers[idx].id
-      db.removeTimerById(id)
+      Timer.removeTimerById(id)
         .then((timers) => this.timers = timers)
         .finally(() => this.loading = false)
     },
@@ -71,7 +71,7 @@ export default {
       const target = this.timers[idx]
       target.started = startedTime.toUTCString()
       target.stopped = null
-      db.updTimerById(target.id, {started: target.started, stopped: target.stopped})
+      Timer.updTimerById(target.id, {started: target.started, stopped: target.stopped})
         .then(timer => this.timers.splice(idx, 1, timer))
         .finally(() => this.timersLoadingStat[idx] = false)
     },
@@ -82,7 +82,7 @@ export default {
       const passedTime = stoppedTime - startedTime
       target.stopped = stoppedTime.toUTCString()
       target.timeLeft = target.timeLeft - passedTime
-      db.updTimerById(target.id, {stopped: target.stopped, timeLeft: target.timeLeft})
+      Timer.updTimerById(target.id, {stopped: target.stopped, timeLeft: target.timeLeft})
         .then(timer => this.timers.splice(idx, 1, timer))
         .finally(() => this.timersLoadingStat[idx] = false)
     },
@@ -91,7 +91,7 @@ export default {
     },
     getTimers () {
       this.loading = true
-      db.getTimers()
+      Timer.getTimers()
         .then(timers => {
           if (timers.error) console.log(timers.error)
           else this.timers = timers
@@ -100,7 +100,7 @@ export default {
     },
     createNewTimer (newTimer) {
       this.loading = true
-      db.newTimer(newTimer)
+      Timer.newTimer(newTimer)
         .then(timers => this.timers = timers)
         .finally(() => this.loading = false)
       this.$emit('toggle-popup')
