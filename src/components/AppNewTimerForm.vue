@@ -20,7 +20,7 @@ export default {
   name: 'AppNewTimerForm',
 
   emits: {
-    popupEvent: Object
+    'popup-event': Object
   },
 
   data () {
@@ -37,7 +37,7 @@ export default {
   methods: {
     addNewTimer () {
       this.newTimer.timeLeft *= 1000
-      this.$emit('popupEvent', {type: 'newTimer', payload: this.newTimer})
+      this.$emit('popup-event', {type: 'newTimer', payload: this.newTimer})
     }
   }
 }

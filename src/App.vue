@@ -4,6 +4,7 @@
   >
     <app-header
       @toggle-sidebar="showSidebar = !showSidebar"
+      @toggle-popup="togglePopup"
     ></app-header>
 
     <div class="app__content">

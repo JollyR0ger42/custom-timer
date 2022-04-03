@@ -49,6 +49,7 @@ export default {
     return {
       timers: [],
       timersLoadingStat: [],
+      // [KAV]TODO: popups should be smarter than this
       AppNewTimerForm: markRaw(defineAsyncComponent(() => import('@/components/AppNewTimerForm.vue'))),
       loading: false
     }

@@ -13,7 +13,10 @@
   </div>
 
   <div class="app-header__right">
-    <button class="app-header__login">Login</button>
+    <button
+      class="app-header__login"
+      @click="authPopup"
+    >Login</button>
     <button class="app-header__login">Sign in</button>
   </div>
 
@@ -21,11 +24,25 @@
 </template>
 
 <script>
+import {defineAsyncComponent, markRaw} from 'vue'
+
 export default {
   name: 'AppHeader',
 
+  data () {
+    return {
+      // [KAV]TODO: popups should be smarter than this
+      AppAuthForm: markRaw(defineAsyncComponent(() => import('@/components/AppAuthForm.vue'))),
+    }
+  },
+
   emits: {
-    'toggle-sidebar': null
+    'toggle-sidebar': null,
+    'toggle-popup': Object
+  },
+
+  methods: {
+    authPopup () {this.$emit('toggle-popup', this.AppAuthForm)}
   }
 }
 </script>
