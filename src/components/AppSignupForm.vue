@@ -2,7 +2,7 @@
   <div class="app-signup-form">
     <base-text-input
       placeholder="Username"
-      v-model="data.username"
+      v-model="data.name"
     />
     <base-text-input
       placeholder="Password"
@@ -30,11 +30,16 @@ export default {
     }
   },
 
+  emits: {
+    'toggle-popup': null
+  },
+
   methods: {
     postSignup () {
       Auth.postSignup(this.data)
         .then(result => console.log(result))
         .catch(error => console.error(error))
+        .finally(() => this.$emit('toggle-popup'))
     }
   }
 }

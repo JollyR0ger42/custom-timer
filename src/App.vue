@@ -31,6 +31,7 @@
           :is="popupComponent"
           v-bind="popupProps"
           @popup-event="handlePopupEvent"
+          @toggle-popup="togglePopup"
         />
       </base-popup>
     </transition>
@@ -53,10 +54,6 @@ export default {
       showSidebar: false,
       showPopup: false,
     }
-  },
-
-  computed: {
-    routerRef () {return this.$refs.routerRef}
   },
 
   methods: {
