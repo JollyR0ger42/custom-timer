@@ -19,7 +19,7 @@
     >Login</button>
     <button
       class="app-header__login"
-      @click="authPopup(AppSigninForm)"
+      @click="authPopup(AppSignupForm)"
     >Sign in</button>
   </div>
 
@@ -36,7 +36,7 @@ export default {
     return {
       // [KAV]TODO: popups should be smarter than this
       AppLoginForm: markRaw(defineAsyncComponent(() => import('@/components/AppLoginForm.vue'))),
-      AppSigninForm: markRaw(defineAsyncComponent(() => import('@/components/AppSigninForm.vue')))
+      AppSignupForm: markRaw(defineAsyncComponent(() => import('@/components/AppSignupForm.vue')))
     }
   },
 

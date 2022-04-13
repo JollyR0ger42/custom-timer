@@ -1,5 +1,5 @@
 <template>
-  <div class="app-signin-form">
+  <div class="app-signup-form">
     <base-text-input
       placeholder="Username"
       v-model="data.username"
@@ -9,14 +9,14 @@
       v-model="data.password"
     />
     <base-button
-      label="Sign in"
+      label="Sign up"
     />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'AppSigninForm',
+  name: 'AppSignupForm',
 
   data () {
     return {
@@ -30,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.app-signin-form {
+.app-signup-form {
   display: flex;
   flex-direction: column;
 }

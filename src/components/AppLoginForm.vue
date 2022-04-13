@@ -10,11 +10,14 @@
     />
     <base-button
       label="Login"
+      @click="postLogin"
     />
   </div>
 </template>
 
 <script>
+import Auth from '@/services/auth.service.js'
+
 export default {
   name: 'AppLoginForm',
 
@@ -24,6 +27,11 @@ export default {
         username: null,
         password: null
       }
+    }
+  },
+
+  methods: {
+    postLogin () {
     }
   }
 }
