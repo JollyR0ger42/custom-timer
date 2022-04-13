@@ -15,9 +15,12 @@
   <div class="app-header__right">
     <button
       class="app-header__login"
-      @click="authPopup"
+      @click="authPopup('Login')"
     >Login</button>
-    <button class="app-header__login">Sign in</button>
+    <button
+      class="app-header__login"
+      @click="authPopup('Sign in')"
+    >Sign in</button>
   </div>
 
 </div>
@@ -42,7 +45,12 @@ export default {
   },
 
   methods: {
-    authPopup () {this.$emit('toggle-popup', this.AppAuthForm)}
+    authPopup (label) {
+      this.$emit('toggle-popup', {
+        component: this.AppAuthForm,
+        props: {label}
+      })
+    }
   }
 }
 </script>

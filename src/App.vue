@@ -29,6 +29,7 @@
       >
         <component
           :is="popupComponent"
+          v-bind="popupProps"
           @popup-event="handlePopupEvent"
         />
       </base-popup>
@@ -42,7 +43,8 @@ export default {
 
   setup () {
     return {
-      popupComponent: null
+      popupComponent: null,
+      popupProps: null
     }
   },
 
@@ -58,9 +60,10 @@ export default {
   },
 
   methods: {
-    togglePopup (popupComponent) {
-      if (popupComponent) {
-        this.popupComponent = popupComponent 
+    togglePopup (popupPayload) {
+      if (popupPayload?.component) {
+        this.popupComponent = popupPayload.component
+        this.popupProps = popupPayload?.props
         this.showPopup = true
       } else {
         this.popupComponent = null

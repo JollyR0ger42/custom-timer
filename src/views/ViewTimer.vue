@@ -88,7 +88,7 @@ export default {
         .finally(() => this.timersLoadingStat[idx] = false)
     },
     addTimerPopup () {
-      this.$emit('toggle-popup', this.AppNewTimerForm)
+      this.$emit('toggle-popup', {component: this.AppNewTimerForm})
     },
     getTimers () {
       this.loading = true

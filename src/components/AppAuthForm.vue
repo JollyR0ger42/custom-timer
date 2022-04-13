@@ -9,8 +9,7 @@
       v-model="data.password"
     />
     <base-button
-      label="Login"
-      @click="addNewTimer"
+      :label="label"
     />
   </div>
 </template>
@@ -18,6 +17,10 @@
 <script>
 export default {
   name: 'AppAuthForm',
+
+  props: {
+    label: String
+  },
 
   data () {
     return {
