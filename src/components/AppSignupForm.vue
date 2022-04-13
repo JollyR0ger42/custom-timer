@@ -24,7 +24,7 @@ export default {
   data () {
     return {
       data: {
-        username: null,
+        name: null,
         password: null
       }
     }
