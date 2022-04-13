@@ -20,7 +20,7 @@
     <button
       class="app-header__login"
       @click="authPopup(AppSignupForm)"
-    >Sign in</button>
+    >Sign up</button>
   </div>
 
 </div>

@@ -10,11 +10,14 @@
     />
     <base-button
       label="Sign up"
+      @click="postSignup"
     />
   </div>
 </template>
 
 <script>
+import Auth from '@/services/auth.service.js'
+
 export default {
   name: 'AppSignupForm',
 
@@ -24,6 +27,14 @@ export default {
         username: null,
         password: null
       }
+    }
+  },
+
+  methods: {
+    postSignup () {
+      Auth.postSignup(this.data)
+        .then(result => console.log(result))
+        .catch(error => console.error(error))
     }
   }
 }
