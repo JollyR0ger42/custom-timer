@@ -15,11 +15,11 @@
   <div class="app-header__right">
     <button
       class="app-header__login"
-      @click="authPopup('Login')"
+      @click="authPopup(AppLoginForm)"
     >Login</button>
     <button
       class="app-header__login"
-      @click="authPopup('Sign in')"
+      @click="authPopup(AppSigninForm)"
     >Sign in</button>
   </div>
 
@@ -35,7 +35,8 @@ export default {
   data () {
     return {
       // [KAV]TODO: popups should be smarter than this
-      AppAuthForm: markRaw(defineAsyncComponent(() => import('@/components/AppAuthForm.vue'))),
+      AppLoginForm: markRaw(defineAsyncComponent(() => import('@/components/AppLoginForm.vue'))),
+      AppSigninForm: markRaw(defineAsyncComponent(() => import('@/components/AppSigninForm.vue')))
     }
   },
 
@@ -45,11 +46,8 @@ export default {
   },
 
   methods: {
-    authPopup (label) {
-      this.$emit('toggle-popup', {
-        component: this.AppAuthForm,
-        props: {label}
-      })
+    authPopup (popup) {
+      this.$emit('toggle-popup', {component: popup})
     }
   }
 }

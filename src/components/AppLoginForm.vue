@@ -1,5 +1,5 @@
 <template>
-  <div class="new-timer-form">
+  <div class="app-login-form">
     <base-text-input
       placeholder="Username"
       v-model="data.username"
@@ -9,18 +9,14 @@
       v-model="data.password"
     />
     <base-button
-      :label="label"
+      label="Login"
     />
   </div>
 </template>
 
 <script>
 export default {
-  name: 'AppAuthForm',
-
-  props: {
-    label: String
-  },
+  name: 'AppLoginForm',
 
   data () {
     return {
@@ -34,7 +30,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.new-timer-form {
+.app-login-form {
   display: flex;
   flex-direction: column;
 }
