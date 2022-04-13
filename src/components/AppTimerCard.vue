@@ -82,14 +82,16 @@ export default {
   
   methods: {
     getNow () { return new Date() },
+    countTime () {
+      const startedTime = new Date(this.started)
+      const nowTime = new Date()
+      const passedTime = nowTime - startedTime
+      console.log(`Interval#${this.intervalId} calc`)
+      this.timer = (this.timeLeft - passedTime) / 1000
+    },
     startCountdown () {
-      this.intervalId = setInterval(() => {
-        const startedTime = new Date(this.started)
-        const nowTime = new Date()
-        const passedTime = nowTime - startedTime
-        console.log(`Interval#${this.intervalId} calc`)
-        this.timer = (this.timeLeft - passedTime) / 1000
-      }, 1000)
+      this.countTime()
+      this.intervalId = setInterval(this.countTime, 1000)
     },
     stopCountdown () {
       clearInterval(this.intervalId)
