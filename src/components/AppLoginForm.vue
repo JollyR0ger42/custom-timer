@@ -2,7 +2,7 @@
   <div class="app-login-form">
     <base-text-input
       placeholder="Username"
-      v-model="data.username"
+      v-model="data.name"
     />
     <base-text-input
       placeholder="Password"
@@ -24,7 +24,7 @@ export default {
   data () {
     return {
       data: {
-        username: null,
+        name: null,
         password: null
       }
     }
@@ -32,6 +32,10 @@ export default {
 
   methods: {
     postLogin () {
+      Auth.postLogin(this.data)
+        .then(result => localStorage.setItem('user', JSON.stringify(result)))
+        .catch(error => console.error(error))
+        .finally(() => this.$emit('toggle-popup'))
     }
   }
 }
