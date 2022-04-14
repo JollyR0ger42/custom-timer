@@ -13,7 +13,7 @@
   </div>
 
   <div
-    v-if="user.name"
+    v-if="user && user.name"
     class="app-header__right"
   >
     <span class="app-header__username">
