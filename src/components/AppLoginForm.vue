@@ -3,10 +3,12 @@
     <base-text-input
       placeholder="Username"
       v-model="data.name"
+      @keyup.enter="postLogin"
     />
     <base-text-input
       placeholder="Password"
       v-model="data.password"
+      @keyup.enter="postLogin"
     />
     <base-button
       label="Login"
