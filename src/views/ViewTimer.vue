@@ -93,10 +93,8 @@ export default {
     getTimers () {
       this.loading = true
       Timer.getTimers()
-        .then(timers => {
-          if (timers.error) console.log(timers.error)
-          else this.timers = timers
-        })
+        .then(timers => this.timers = timers)
+        .catch(error => console.error(error))
         .finally(() => this.loading = false)
     },
     createNewTimer (newTimer) {

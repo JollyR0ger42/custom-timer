@@ -2,7 +2,7 @@
   <div class="app-login-form">
     <base-text-input
       placeholder="Username"
-      v-model="data.name"
+      v-model="data.id"
       @keyup.enter="postLogin"
     />
     <base-text-input
@@ -26,7 +26,7 @@ export default {
   data () {
     return {
       data: {
-        name: null,
+        id: null,
         password: null
       }
     }

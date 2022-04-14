@@ -2,11 +2,13 @@
   <div class="app-signup-form">
     <base-text-input
       placeholder="Username"
-      v-model="data.name"
+      v-model="data.id"
+      @keyup.enter="postSignup"
     />
     <base-text-input
       placeholder="Password"
       v-model="data.password"
+      @keyup.enter="postSignup"
     />
     <base-button
       label="Sign up"
@@ -24,7 +26,7 @@ export default {
   data () {
     return {
       data: {
-        name: null,
+        id: null,
         password: null
       }
     }

@@ -16,8 +16,9 @@ const newTimer = async (newTimer) => {
 
 const getTimers = async () => {
   const response = await fetch(SERVER + 'timers', {headers: authHeader()})
-  const timers = await response.json()
-  return timers
+  const result = await response.json()
+  if (response.status !== 200) throw result
+  return result
 }
 
 const removeTimerById = async (id) => {

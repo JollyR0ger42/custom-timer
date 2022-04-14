@@ -13,11 +13,11 @@
   </div>
 
   <div
-    v-if="user && user.name"
+    v-if="user && user.id"
     class="app-header__right"
   >
     <span class="app-header__username">
-      {{user.name}}
+      {{user.id}}
     </span>
     <button
       class="app-header__login"
