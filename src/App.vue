@@ -3,8 +3,10 @@
     class="app"
   >
     <app-header
+      :user="user"
       @toggle-sidebar="showSidebar = !showSidebar"
       @toggle-popup="togglePopup"
+      @popup-event="handlePopupEvent"
     ></app-header>
 
     <div class="app__content">
@@ -53,6 +55,7 @@ export default {
     return {
       showSidebar: false,
       showPopup: false,
+      user: JSON.parse(localStorage.getItem('user'))
     }
   },
 
@@ -67,8 +70,13 @@ export default {
         this.showPopup = false
       }
     },
+    setUser (user) {
+      localStorage.setItem('user', JSON.stringify(user))
+      this.user = user
+    },
     handlePopupEvent (payload) {
       if (payload?.type === 'newTimer') this.$refs.routerRef?.createNewTimer?.(payload.payload)
+      else if (payload?.type === 'setUser') this.setUser(payload.payload)
       else console.log('handlePopupEvent:', payload)
     }
   }

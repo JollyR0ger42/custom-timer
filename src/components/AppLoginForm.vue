@@ -32,10 +32,15 @@ export default {
     }
   },
 
+  emits: {
+    'popup-event': Object,
+    'toggle-popup': null
+  },
+
   methods: {
     postLogin () {
       Auth.postLogin(this.data)
-        .then(result => localStorage.setItem('user', JSON.stringify(result)))
+        .then(result => this.$emit('popup-event', {type: 'setUser', payload: result}))
         .catch(error => console.error(error))
         .finally(() => this.$emit('toggle-popup'))
     }
