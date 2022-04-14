@@ -16,7 +16,6 @@ const postLogin = async (authForm) => {
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify(authForm)
   })
-  console.log(response)
   const result = await response.json()
   return result
 }
