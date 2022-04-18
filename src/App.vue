@@ -35,6 +35,7 @@
           v-bind="popupProps"
           @popup-event="handlePopupEvent"
           @toggle-popup="togglePopup"
+          @handle-http-error="handleHttpError"
         />
       </base-popup>
     </transition>
@@ -64,13 +65,14 @@ export default {
 
   methods: {
     togglePopup (popupPayload) {
+      this.popupComponent = null
+      this.popupProps = null
+      this.showPopup = false
+
       if (popupPayload?.name) {
         this.popupComponent = getPopup(popupPayload.name)
         this.popupProps = popupPayload?.props
         this.showPopup = true
-      } else {
-        this.popupComponent = null
-        this.showPopup = false
       }
     },
     setUser (user) {
@@ -82,8 +84,10 @@ export default {
       else if (payload?.type === 'setUser') this.setUser(payload.payload)
       else console.log('handlePopupEvent:', payload)
     },
-    handleHttpError (status) {
-      console.log('Http error not handled:', status)
+    handleHttpError (error) {
+      console.log(error)
+      if (error?.status === 400) this.togglePopup({name: 'popup-info', props: {error}})
+      else console.log('Http error not handled:', error)
     }
   }
 }

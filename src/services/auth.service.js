@@ -7,6 +7,7 @@ const postSignup = async (authForm) => {
     body: JSON.stringify(authForm)
   })
   const result = await response.json()
+  if (response.status !== 200) throw {...result, status: response.status}
   return result
 }
 

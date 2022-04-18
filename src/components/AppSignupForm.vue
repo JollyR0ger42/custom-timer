@@ -40,15 +40,21 @@ export default {
 
   emits: {
     'toggle-popup': null,
-    'popup-event': Object
+    'popup-event': Object,
+    'handle-http-error': Object
   },
 
   methods: {
     postSignup () {
       Auth.postSignup(this.data)
-        .then(result => console.log(result))
-        .catch(error => console.error(error))
-        .finally(() => this.$emit('toggle-popup'))
+        .then(result => {
+          console.log(result)
+          this.$emit('toggle-popup')
+        })
+        .catch(error => {
+          if (error?.status) this.$emit('handle-http-error', error)
+          else console.error('Error:', error)
+        })
     },
     postLogin () {
       Auth.postLogin(this.data)
