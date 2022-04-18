@@ -72,7 +72,7 @@ export default {
       const target = this.timers[idx]
       target.started = startedTime.toUTCString()
       target.stopped = null
-      Timer.updTimerById(target.id, {started: target.started, stopped: target.stopped})
+      Timer.updTimerById(target.id, {started: target.started})
         .then(timer => this.timers.splice(idx, 1, timer))
         .finally(() => this.timersLoadingStat[idx] = false)
     },
@@ -83,7 +83,7 @@ export default {
       const passedTime = stoppedTime - startedTime
       target.stopped = stoppedTime.toUTCString()
       target.timeLeft = target.timeLeft - passedTime
-      Timer.updTimerById(target.id, {stopped: target.stopped, timeLeft: target.timeLeft})
+      Timer.updTimerById(target.id, {stopped: target.stopped})
         .then(timer => this.timers.splice(idx, 1, timer))
         .finally(() => this.timersLoadingStat[idx] = false)
     },
@@ -100,7 +100,7 @@ export default {
     createNewTimer (newTimer) {
       this.loading = true
       Timer.newTimer(newTimer)
-        .then(timers => this.timers = timers)
+        .then(timer => this.timers.push(timer))
         .finally(() => this.loading = false)
       this.$emit('toggle-popup')
     }

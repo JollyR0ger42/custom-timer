@@ -87,7 +87,7 @@ export default {
       const nowTime = new Date()
       const passedTime = nowTime - startedTime
       console.log(`Interval#${this.intervalId} calc`)
-      this.timer = (this.timeLeft - passedTime) / 1000
+      this.timer = Math.floor((this.timeLeft - passedTime) / 1000)
     },
     startCountdown () {
       this.countTime()

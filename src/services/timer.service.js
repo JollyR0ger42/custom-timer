@@ -10,8 +10,9 @@ const newTimer = async (newTimer) => {
     },
     body: JSON.stringify(newTimer)
   })
-  const timers = await response.json()
-  return timers
+  const result = await response.json()
+  if (response.status !== 201) throw result
+  return result
 }
 
 const getTimers = async () => {
