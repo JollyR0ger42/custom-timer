@@ -42,7 +42,8 @@ export default {
   },
 
   emits: {
-    'toggle-popup': Object
+    'toggle-popup': Object,
+    'handle-http-error': Number
   },
 
   data () {
@@ -94,7 +95,10 @@ export default {
       this.loading = true
       Timer.getTimers()
         .then(timers => this.timers = timers)
-        .catch(error => console.error(error))
+        .catch(error => {
+          if (error.status === 401) this.$emit('handle-http-error', error.status)
+          else console.error('Error:', error)
+        })
         .finally(() => this.loading = false)
     },
     createNewTimer (newTimer) {

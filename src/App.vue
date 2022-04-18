@@ -18,6 +18,7 @@
       <router-view
         class="app__view"
         @toggle-popup="togglePopup"
+        @handle-http-error="handleHttpError"
         v-slot="{Component}"
       >
         <component ref="routerRef" :is="Component" />
@@ -78,6 +79,9 @@ export default {
       if (payload?.type === 'newTimer') this.$refs.routerRef?.createNewTimer?.(payload.payload)
       else if (payload?.type === 'setUser') this.setUser(payload.payload)
       else console.log('handlePopupEvent:', payload)
+    },
+    handleHttpError (status) {
+      console.log('Http error not handled:', status)
     }
   }
 }
