@@ -10,10 +10,16 @@
       v-model="data.password"
       @keyup.enter="postSignup"
     />
-    <base-button
-      label="Sign up"
-      @click="postSignup"
-    />
+    <div class="app-signup-form__buttons">
+      <base-button
+        label="Sign up"
+        @click="postSignup"
+      />
+      <base-button
+        label="Login"
+        @click="postLogin"
+      />
+    </div>
   </div>
 </template>
 
@@ -33,13 +39,20 @@ export default {
   },
 
   emits: {
-    'toggle-popup': null
+    'toggle-popup': null,
+    'popup-event': Object
   },
 
   methods: {
     postSignup () {
       Auth.postSignup(this.data)
         .then(result => console.log(result))
+        .catch(error => console.error(error))
+        .finally(() => this.$emit('toggle-popup'))
+    },
+    postLogin () {
+      Auth.postLogin(this.data)
+        .then(result => this.$emit('popup-event', {type: 'setUser', payload: result}))
         .catch(error => console.error(error))
         .finally(() => this.$emit('toggle-popup'))
     }
@@ -51,5 +64,10 @@ export default {
 .app-signup-form {
   display: flex;
   flex-direction: column;
+
+  &__buttons {
+    display: flex;
+    justify-content: center;
+  }
 }
 </style>
