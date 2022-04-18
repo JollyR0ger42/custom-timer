@@ -30,7 +30,7 @@
   >
     <button
       class="app-header__login"
-      @click="authPopup(AppSignupForm)"
+      @click="authPopup('popup-auth')"
     >Sign up</button>
   </div>
 
@@ -38,20 +38,11 @@
 </template>
 
 <script>
-import {defineAsyncComponent, markRaw} from 'vue'
-
 export default {
   name: 'AppHeader',
 
   props: {
     user: Object
-  },
-
-  data () {
-    return {
-      // [KAV]TODO: popups should be smarter than this
-      AppSignupForm: markRaw(defineAsyncComponent(() => import('@/components/AppSignupForm.vue')))
-    }
   },
 
   emits: {
@@ -61,8 +52,8 @@ export default {
   },
 
   methods: {
-    authPopup (popup) {
-      this.$emit('toggle-popup', {component: popup})
+    authPopup (name) {
+      this.$emit('toggle-popup', {name})
     },
     authLogout () {
       this.$emit('popup-event', {type: 'setUser', payload: {}})

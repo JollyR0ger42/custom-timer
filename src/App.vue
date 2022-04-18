@@ -42,6 +42,8 @@
 </template>
 
 <script>
+import getPopup from '@/services/popup.service.js'
+
 export default {
   name: 'App',
 
@@ -62,8 +64,8 @@ export default {
 
   methods: {
     togglePopup (popupPayload) {
-      if (popupPayload?.component) {
-        this.popupComponent = popupPayload.component
+      if (popupPayload?.name) {
+        this.popupComponent = getPopup(popupPayload.name)
         this.popupProps = popupPayload?.props
         this.showPopup = true
       } else {
