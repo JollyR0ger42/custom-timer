@@ -3,12 +3,12 @@
     <base-text-input
       placeholder="Username"
       v-model="data.id"
-      @keyup.enter="postSignup"
+      @keyup.enter="postLogin"
     />
     <base-text-input
       placeholder="Password"
       v-model="data.password"
-      @keyup.enter="postSignup"
+      @keyup.enter="postLogin"
     />
     <div class="app-signup-form__buttons">
       <base-button

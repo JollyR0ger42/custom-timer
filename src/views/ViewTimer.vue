@@ -50,8 +50,6 @@ export default {
     return {
       timers: [],
       timersLoadingStat: [],
-      // [KAV]TODO: popups should be smarter than this
-      AppNewTimerForm: markRaw(defineAsyncComponent(() => import('@/components/AppNewTimerForm.vue'))),
       loading: false
     }
   },
@@ -89,7 +87,7 @@ export default {
         .finally(() => this.timersLoadingStat[idx] = false)
     },
     addTimerPopup () {
-      this.$emit('toggle-popup', {component: this.AppNewTimerForm})
+      this.$emit('toggle-popup', {name: 'popup-newtimer'})
     },
     getTimers () {
       this.loading = true
