@@ -3,10 +3,12 @@
     <base-text-input
       placeholder="Name"
       v-model="newTimer.name"
+      @keyup.enter="addNewTimer"
     />
     <base-text-input
       placeholder="Time"
       v-model.number="newTimer.timeLeft"
+      @keyup.enter="addNewTimer"
     />
     <base-button
       label="Add"

@@ -32,7 +32,6 @@
 <script>
 import AppTimerCard from '@/components/AppTimerCard.vue'
 import Timer from '@/services/timer.service.js'
-import {defineAsyncComponent, markRaw} from 'vue'
 
 export default {
   name: 'ViewTimer',
@@ -102,7 +101,7 @@ export default {
     createNewTimer (newTimer) {
       this.loading = true
       Timer.newTimer(newTimer)
-        .then(timer => this.timers.push(timer))
+        .then(timers => this.timers = timers)
         .finally(() => this.loading = false)
       this.$emit('toggle-popup')
     }
