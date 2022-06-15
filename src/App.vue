@@ -85,8 +85,8 @@ export default {
       else console.log('handlePopupEvent:', payload)
     },
     handleHttpError (error) {
-      console.log(error)
       if (error?.status === 400) this.togglePopup({name: 'popup-info', props: {error}})
+      else if (error?.status === 401) this.togglePopup({name: 'popup-auth'})
       else console.log('Http error not handled:', error)
     }
   }
