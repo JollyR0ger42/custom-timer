@@ -1,10 +1,15 @@
 <template>
+<div class="base-text-input">
+  <label class="base-text-input__label" for="input">{{label}}</label>
   <input
-    class="base-text-input"
+    class="base-text-input__field"
+    name="input"
     type="text"
     v-model="value"
     :placeholder="placeholder"
+    autocomplete="off"
   />
+</div>
 </template>
 
 <script>
@@ -13,7 +18,8 @@ export default {
 
   props: {
     modelValue: [String, Number],
-    placeholder: [String, Number]
+    placeholder: [String, Number],
+    label: String
   },
 
   emits: {
@@ -31,6 +37,19 @@ export default {
 
 <style lang="scss" scoped>
 .base-text-input {
-  font-size: 1.6rem;
+  display: flex;
+  flex-direction: column;
+
+  &__label {
+    font-size: 1.6em;
+    margin-bottom: 5px;
+  }
+
+  &__field {
+    font-size: 1.6em;
+    &::placeholder {
+      opacity: 0.5;
+    }
+  }
 }
 </style>

@@ -31,7 +31,7 @@ export default {
   justify-content: center;
 
   &__content {
-    padding: 20px;
+    padding: 10px;
     background-color: $second-background;
     position: relative;
     z-index: 101;

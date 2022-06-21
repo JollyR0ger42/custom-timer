@@ -97,10 +97,10 @@ export default {
 <style lang="scss">
 .app {
   position: relative;
-  height: 100%;
   background-color: $base-background;
   display: flex;
   flex-direction: column;
+  height: 100%;
 
   &__content {
     display: flex;
