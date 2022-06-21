@@ -100,11 +100,11 @@ export default {
   background-color: $base-background;
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100vh;
+  overflow-y: hidden;
 
   &__content {
-    display: flex;
-    height: 95%;
+    overflow-y: scroll;
   }
 }
 </style>
