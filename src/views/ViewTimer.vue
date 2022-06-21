@@ -112,7 +112,7 @@ export default {
 <style lang="scss" scoped>
 .view-home {
   width: 100%;
-  padding: 10px;
+  padding: 5px;
   display: flex;
   flex-direction: column;
   align-items: center;

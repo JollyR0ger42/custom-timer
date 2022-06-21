@@ -2,25 +2,27 @@
   <div class="app-timer-card">
     <div class="app-timer-card__title">{{name}}</div>
     <span>Time left: {{timer}}</span>
-    <base-button
-      :tabindex="(loading || inactive) ? -1 : 0"
-      v-if="!isActive"
-      label="Start"
-      @click="$emit('start-timer', getNow())"
-    />
-    <base-button
-      :tabindex="(loading || inactive) ? -1 : 0"
-      v-if="isActive"
-      type="transparent"
-      label="Stop"
-      @click="$emit('stop-timer', getNow())"
-    />
-    <base-button
-      :tabindex="(loading || inactive) ? -1 : 0"
-      color="red"
-      label="x"
-      @click="$emit('remove-timer')"
-    />
+    <div class="app-timer-card__buttons">
+      <base-button
+        :tabindex="(loading || inactive) ? -1 : 0"
+        v-if="!isActive"
+        label="Start"
+        @click="$emit('start-timer', getNow())"
+      />
+      <base-button
+        :tabindex="(loading || inactive) ? -1 : 0"
+        v-else
+        type="transparent"
+        label="Stop"
+        @click="$emit('stop-timer', getNow())"
+      />
+      <base-button
+        :tabindex="(loading || inactive) ? -1 : 0"
+        color="red"
+        label="Delete"
+        @click="$emit('remove-timer')"
+      />
+    </div>
 
     <base-loader v-if="loading" />
   </div>
@@ -103,17 +105,23 @@ export default {
 
 <style lang="scss" scoped>
 .app-timer-card {
+  display: flex;
+  flex-direction: column;
   position: relative;
   font-size: 1.6rem;
   border: 2px solid $extra-color;
-  padding: 15px;
-  margin: 10px;
+  padding: 5px;
+  margin: 5px;
   z-index: 0;
 
   &__title {
     text-align: center;
     font-size: 1.8rem;
     font-weight: 600;
+  }
+
+  &__buttons {
+    display: flex;
   }
 }
 </style>
