@@ -1,7 +1,7 @@
 <template>
   <div class="app-timer-card">
     <div class="app-timer-card__title">{{name}}</div>
-    <span>Time left: {{timer}}</span>
+    <span class="app-timer-card__timer">{{timerState}}</span>
     <div class="app-timer-card__buttons">
       <base-button
         :tabindex="(loading || inactive) ? -1 : 0"
@@ -49,8 +49,8 @@ export default {
 
   data () {
     return {
-      timer: null,
-      intervalId: null
+      intervalId: null,
+      localTimeLeft: null
     }
   },
 
@@ -58,6 +58,15 @@ export default {
     isActive () {
       if (this.started && !this.stopped) return true
       else return false
+    },
+    timerState () {
+      const ms = this.localTimeLeft
+      let seconds = Math.floor(ms / 1000)
+      let minutes = Math.floor(seconds / 60)
+      let hours = Math.floor(minutes / 60)
+      seconds = seconds % 60
+      minutes = minutes % 60
+      return `${this.padTime(hours)}:${this.padTime(minutes)}:${this.padTime(seconds)}`
     }
   },
 
@@ -69,13 +78,10 @@ export default {
         else { this.stopCountdown() }
       }
     },
-    timeLeft () {
-      this.timer = this.timeLeft / 1000
+    timeLeft: {
+      immediate: true,
+      handler (newVal) {this.localTimeLeft = newVal}
     }
-  },
-
-  mounted () {
-    if (!this.isActive) this.timer = this.timeLeft / 1000
   },
 
   beforeUnmount () {
@@ -83,13 +89,16 @@ export default {
   },
   
   methods: {
+    padTime (num) {
+      return num.toString().padStart(2, '0')
+    },
     getNow () { return new Date() },
     countTime () {
       const startedTime = new Date(this.started)
       const nowTime = new Date()
       const passedTime = nowTime - startedTime
       console.log(`Interval#${this.intervalId} calc`)
-      this.timer = Math.floor((this.timeLeft - passedTime) / 1000)
+      this.localTimeLeft = this.timeLeft - passedTime
     },
     startCountdown () {
       this.countTime()
@@ -118,10 +127,15 @@ export default {
     text-align: center;
     font-size: 1.8rem;
     font-weight: 600;
+    margin-bottom: 10px;
   }
 
   &__buttons {
     display: flex;
+  }
+
+  &__timer {
+    text-align: center;
   }
 }
 </style>
