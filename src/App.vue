@@ -78,6 +78,7 @@ export default {
     setUser (user) {
       localStorage.setItem('user', JSON.stringify(user))
       this.user = user
+      this.$router.go()
     },
     handlePopupEvent (payload) {
       if (payload?.type === 'newTimer') this.$refs.routerRef?.createNewTimer?.(payload.payload)
