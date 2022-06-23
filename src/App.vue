@@ -104,7 +104,7 @@ export default {
   overflow-y: hidden;
 
   &__content {
-    overflow-y: scroll;
+    overflow-y: auto;
   }
 }
 </style>
