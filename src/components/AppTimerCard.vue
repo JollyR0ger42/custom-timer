@@ -8,13 +8,19 @@
         v-if="!isActive"
         label="Start"
         @click="$emit('start-timer', getNow())"
+        type="transparent"
       />
       <base-button
         :tabindex="(loading || inactive) ? -1 : 0"
         v-else
-        type="transparent"
         label="Stop"
         @click="$emit('stop-timer', getNow())"
+      />
+      <base-button
+        :tabindex="(loading || inactive) ? -1 : 0"
+        type="transparent"
+        label="Edit"
+        @click="$emit('edit-timer', getNow())"
       />
       <base-button
         :tabindex="(loading || inactive) ? -1 : 0"
@@ -29,6 +35,8 @@
 </template>
 
 <script>
+import msToObj from '@/helpers/millisecondsToObj.js'
+
 export default {
   name: 'AppTimerCard',
 
@@ -45,6 +53,7 @@ export default {
     'remove-timer': null,
     'start-timer': val => val instanceof Date,
     'stop-timer': val => val instanceof Date,
+    'edit-timer': val => val instanceof Date,
   },
 
   data () {
@@ -60,12 +69,7 @@ export default {
       else return false
     },
     timerState () {
-      const ms = this.localTimeLeft
-      let seconds = Math.floor(ms / 1000)
-      let minutes = Math.floor(seconds / 60)
-      let hours = Math.floor(minutes / 60)
-      seconds = seconds % 60
-      minutes = minutes % 60
+      const {hours, minutes, seconds} = msToObj(this.localTimeLeft)
       return `${this.padTime(hours)}:${this.padTime(minutes)}:${this.padTime(seconds)}`
     }
   },
@@ -136,6 +140,7 @@ export default {
 
   &__timer {
     text-align: center;
+    font-size: 2rem;
   }
 }
 </style>

@@ -82,6 +82,7 @@ export default {
     },
     handlePopupEvent (payload) {
       if (payload?.type === 'newTimer') this.$refs.routerRef?.createNewTimer?.(payload.payload)
+      else if (payload?.type === 'updateTimer') this.$refs.routerRef?.updateTimer?.(payload.payload)
       else if (payload?.type === 'setUser') this.setUser(payload.payload)
       else console.log('handlePopupEvent:', payload)
     },

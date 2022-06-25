@@ -3,36 +3,36 @@
     <base-text-input
       label="Label:"
       placeholder="Timer label"
-      v-model="newTimer.name"
-      @keyup.enter="addNewTimer"
+      v-model="timer.name"
+      @keyup.enter="atSubmit"
     />
     <div class="new-timer-form__time-input">
       <base-text-input
         label="Hours:"
         placeholder="hours"
         v-model.number="timeObj.hours"
-        @keyup.enter="addNewTimer"
+        @keyup.enter="atSubmit"
         type="number"
       />
       <base-text-input
         label="Minutes:"
         placeholder="minutes"
         v-model.number="timeObj.minutes"
-        @keyup.enter="addNewTimer"
+        @keyup.enter="atSubmit"
         type="number"
       />
       <base-text-input
         label="Seconds:"
         placeholder="seconds"
         v-model.number="timeObj.seconds"
-        @keyup.enter="addNewTimer"
+        @keyup.enter="atSubmit"
         type="number"
       />
     </div>
     <div class="new-timer-form__buttons">
       <base-button
-        label="Add"
-        @click="addNewTimer"
+        label="Ok"
+        @click="atSubmit"
       />
       <base-button
         color="red"
@@ -44,33 +44,41 @@
 </template>
 
 <script>
+import msToObj from '@/helpers/millisecondsToObj.js'
+
 export default {
   name: 'AppTimerForm',
 
   emits: {
-    'popup-event': Object
+    'popup-event': Object,
+    'toggle-popup': null
+  },
+
+  props: {
+    name: String,
+    timeLeft: Number,
+    id: [String, Number],
   },
 
   data () {
     return {
-      newTimer: {
-        name: null,
-        timeLeft: null,
-        started: null,
-        stopped: null
+      timer: {
+        id: this.id ?? null,
+        name: this.name ?? null,
+        timeLeft: this.timeLeft ?? null
       },
-      timeObj: {
-        hours: null,
-        minutes: null,
-        seconds: null
-      }
+      timeObj: msToObj(this.timeLeft)
     }
   },
 
   methods: {
-    addNewTimer () {
-      this.newTimer.timeLeft = this.getSeconds() * 1000 // in miliseconds
-      this.$emit('popup-event', {type: 'newTimer', payload: this.newTimer})
+    atSubmit () {
+      this.timer.timeLeft = this.getSeconds() * 1000 // in miliseconds
+      if (this.timeLeft) {
+        this.$emit('popup-event', {type: 'updateTimer', payload: this.timer})
+      } else {
+        this.$emit('popup-event', {type: 'newTimer', payload: this.timer})
+      }
     },
     getSeconds () {
       const seconds = this.timeObj.seconds ?? 0

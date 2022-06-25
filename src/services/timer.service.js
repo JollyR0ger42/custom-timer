@@ -40,8 +40,8 @@ const updTimerById = async (id, updFields) => {
     },
     body: JSON.stringify(updFields)
   })
-  const timer = await response.json()
-  return timer
+  const result = await response.json()
+  return result
 }
 
 export default {
