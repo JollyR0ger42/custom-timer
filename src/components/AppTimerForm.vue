@@ -12,18 +12,21 @@
         placeholder="hours"
         v-model.number="timeObj.hours"
         @keyup.enter="addNewTimer"
+        type="number"
       />
       <base-text-input
         label="Minutes:"
         placeholder="minutes"
         v-model.number="timeObj.minutes"
         @keyup.enter="addNewTimer"
+        type="number"
       />
       <base-text-input
         label="Seconds:"
         placeholder="seconds"
         v-model.number="timeObj.seconds"
         @keyup.enter="addNewTimer"
+        type="number"
       />
     </div>
     <div class="new-timer-form__buttons">
@@ -42,7 +45,7 @@
 
 <script>
 export default {
-  name: 'AppNewTimerForm',
+  name: 'AppTimerForm',
 
   emits: {
     'popup-event': Object

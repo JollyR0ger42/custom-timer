@@ -4,7 +4,7 @@
   <input
     class="base-text-input__field"
     name="input"
-    type="text"
+    :type="type"
     v-model="value"
     :placeholder="placeholder"
     autocomplete="off"
@@ -19,7 +19,11 @@ export default {
   props: {
     modelValue: [String, Number],
     placeholder: [String, Number],
-    label: String
+    label: String,
+    type: {
+      type: String,
+      default: 'text'
+    }
   },
 
   emits: {
