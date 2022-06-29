@@ -9,6 +9,7 @@
     :placeholder="placeholder"
     autocomplete="off"
   />
+  <base-visibility-icon />
 </div>
 </template>
 
