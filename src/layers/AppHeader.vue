@@ -2,6 +2,7 @@
 <div class="app-header">
   <div class="app-header__left">
     <button
+      v-if="false"
       class="material-icons app-header__sidebar-button"
       @click="$emit('toggle-sidebar')"
     >
