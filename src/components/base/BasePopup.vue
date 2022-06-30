@@ -3,9 +3,11 @@
     class="base-popup"
     @click.self="$emit('toggle-popup')"
   >
-    <div class="base-popup__content">
-      <slot></slot>
-    </div>
+    <focus-trap :active="false" ref="focusTrap">
+      <div class="base-popup__content">
+        <slot></slot>
+      </div>
+    </focus-trap>
   </div>
 </template>
 
@@ -15,7 +17,35 @@ export default {
 
   emits: {
     'toggle-popup': null
-  }
+  },
+
+  data () {
+    return {
+      intervalId: null,
+      ATTEMPTS: 10,
+      DELAY: 500, // in ms,
+      attempt: 0
+    }
+  },
+
+  mounted () {
+    this.intervalId = setInterval(() => {
+      this.trapFocus()
+      this.attempt++
+      if (this.attempt >= this.ATTEMPTS) clearInterval(this.intervalId)
+    }, this.DELAY)
+  },
+
+  methods: {
+    trapFocus () {
+      try {
+        this.$refs.focusTrap.activate()
+        clearInterval(this.intervalId)
+      } catch (e) {
+        console.error('BasePopup: focus not catched.')
+      }
+    }
+  },
 }
 </script>
 
