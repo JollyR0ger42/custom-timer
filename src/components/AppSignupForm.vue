@@ -9,6 +9,7 @@
       placeholder="Password"
       v-model="data.password"
       @keyup.enter="postLogin"
+      type="password"
     />
     <div class="app-signup-form__buttons">
       <base-button

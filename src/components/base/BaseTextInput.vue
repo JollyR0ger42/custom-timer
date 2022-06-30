@@ -1,15 +1,25 @@
 <template>
 <div class="base-text-input">
   <label class="base-text-input__label" for="input">{{label}}</label>
-  <input
-    class="base-text-input__field"
-    name="input"
-    :type="type"
-    v-model="value"
-    :placeholder="placeholder"
-    autocomplete="off"
-  />
-  <base-visibility-icon />
+  <div class="base-text-input__wrapper">
+    <input
+      class="base-text-input__field"
+      name="input"
+      :type="_type"
+      v-model="value"
+      :placeholder="placeholder"
+      autocomplete="off"
+    />
+    <base-visibility-icon
+      tabindex="0"
+      :status="showPassword"
+      v-if="type === 'password'"
+      class="base-text-input__field__vis-icon"
+      @click="togglePasswordVis"
+      @keyup.enter.stop="togglePasswordVis"
+      @keyup.space="togglePasswordVis"
+    />
+  </div>
 </div>
 </template>
 
@@ -35,6 +45,23 @@ export default {
     value: {
       get () {return this.modelValue},
       set (newVal) {this.$emit('update:modelValue', newVal)}
+    },
+    _type () {
+      if (this.type === 'password' && this.showPassword)
+        return 'text'
+      else return this.type
+    }
+  },
+
+  data () {
+    return {
+      showPassword: false
+    }
+  },
+
+  methods: {
+    togglePasswordVis () {
+      this.showPassword = !this.showPassword
     }
   }
 }
@@ -55,6 +82,18 @@ export default {
     &::placeholder {
       opacity: 0.5;
     }
+
+    &__vis-icon {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      top: 2px;
+      right: 5px;
+    }
+  }
+
+  &__wrapper {
+    position: relative;
   }
 }
 </style>
