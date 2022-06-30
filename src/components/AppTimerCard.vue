@@ -101,7 +101,6 @@ export default {
       const startedTime = new Date(this.started)
       const nowTime = new Date()
       const passedTime = nowTime - startedTime
-      console.log(`Interval#${this.intervalId} calc`)
       this.localTimeLeft = +this.timeLeft - passedTime
     },
     startCountdown () {
