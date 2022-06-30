@@ -56,7 +56,7 @@ export default {
 
   props: {
     name: String,
-    timeLeft: Number,
+    timeLeft: [Number, String],
     id: [String, Number],
   },
 
