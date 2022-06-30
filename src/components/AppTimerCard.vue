@@ -42,7 +42,7 @@ export default {
 
   props: {
     name: String,
-    timeLeft: Number,
+    timeLeft: [Number, String],
     started: String,
     stopped: String,
     loading: Boolean,
@@ -102,7 +102,7 @@ export default {
       const nowTime = new Date()
       const passedTime = nowTime - startedTime
       console.log(`Interval#${this.intervalId} calc`)
-      this.localTimeLeft = this.timeLeft - passedTime
+      this.localTimeLeft = +this.timeLeft - passedTime
     },
     startCountdown () {
       this.countTime()

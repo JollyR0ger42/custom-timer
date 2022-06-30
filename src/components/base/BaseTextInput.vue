@@ -79,6 +79,7 @@ export default {
 
   &__field {
     font-size: 1.6em;
+    width: 100%;
     &::placeholder {
       opacity: 0.5;
     }
