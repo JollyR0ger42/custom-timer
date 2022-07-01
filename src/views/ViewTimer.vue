@@ -115,7 +115,6 @@ export default {
     },
     updateTimer (timer) {
       this.loading = true
-      console.log(timer)
       Timer.updTimerById(timer.id, timer)
         .then(timers => this.timers = timers)
         .finally(() => this.loading = false)

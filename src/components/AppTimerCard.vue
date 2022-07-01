@@ -2,6 +2,7 @@
   <div class="app-timer-card">
     <div class="app-timer-card__title">{{name}}</div>
     <span class="app-timer-card__timer">{{timerState}}</span>
+    <span class="app-timer-card__init-timer">{{initTimerState}}</span>
     <div class="app-timer-card__buttons">
       <base-button
         :tabindex="(loading || inactive) ? -1 : 0"
@@ -43,6 +44,7 @@ export default {
   props: {
     name: String,
     timeLeft: [Number, String],
+    initTimeLeft: [Number, String],
     started: String,
     stopped: String,
     loading: Boolean,
@@ -70,6 +72,10 @@ export default {
     },
     timerState () {
       const {hours, minutes, seconds} = msToObj(this.localTimeLeft)
+      return `${this.padTime(hours)}:${this.padTime(minutes)}:${this.padTime(seconds)}`
+    },
+    initTimerState () {
+      const {hours, minutes, seconds} = msToObj(this.initTimeLeft)
       return `${this.padTime(hours)}:${this.padTime(minutes)}:${this.padTime(seconds)}`
     }
   },
@@ -140,6 +146,12 @@ export default {
   &__timer {
     text-align: center;
     font-size: 2rem;
+  }
+
+  &__init-timer {
+    text-align: center;
+    font-size: 1.6rem;
+    font-weight: bold;
   }
 }
 </style>

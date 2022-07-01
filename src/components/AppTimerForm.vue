@@ -56,7 +56,7 @@ export default {
 
   props: {
     name: String,
-    timeLeft: [Number, String],
+    initTimeLeft: [Number, String],
     id: [String, Number],
   },
 
@@ -65,16 +65,16 @@ export default {
       timer: {
         id: this.id ?? null,
         name: this.name ?? null,
-        timeLeft: this.timeLeft ?? null
+        initTimeLeft: this.initTimeLeft ?? null
       },
-      timeObj: msToObj(this.timeLeft)
+      timeObj: msToObj(this.initTimeLeft)
     }
   },
 
   methods: {
     atSubmit () {
-      this.timer.timeLeft = this.getSeconds() * 1000 // in miliseconds
-      if (this.timeLeft) {
+      this.timer.initTimeLeft = this.getSeconds() * 1000 // in miliseconds
+      if (this.initTimeLeft) {
         this.$emit('popup-event', {type: 'updateTimer', payload: this.timer})
       } else {
         this.$emit('popup-event', {type: 'newTimer', payload: this.timer})
