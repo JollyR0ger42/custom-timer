@@ -17,6 +17,7 @@
         @start-timer="startTimer(idx)"
         @stop-timer="stopTimer(idx)"
         @edit-timer="updateTimerPopup(idx)"
+        @reset-timer="resetTimer(idx)"
       />
 
       <base-button
@@ -59,6 +60,19 @@ export default {
   },
 
   methods: {
+    async resetTimer (idx) {
+      this.timersLoadingStat[idx] = true
+      const target = this.timers[idx]
+      try {
+        const now = new Date().toUTCString()
+        const timers = await Timer.updTimerById(target.id,
+          {stopped: null, started: now, timeLeft: target.initTimeLeft}
+        )
+        this.timers = timers
+      } finally {
+        this.timersLoadingStat[idx] = false
+      }
+    },
     removeTimer (idx) {
       this.loading = true
       const id = this.timers[idx].id

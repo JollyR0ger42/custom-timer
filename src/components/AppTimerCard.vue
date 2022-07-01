@@ -22,6 +22,7 @@
         label="Reset"
         type="transparent"
         color="lime"
+        @click="$emit('reset-timer')"
       />
       <base-button
         :tabindex="(loading || inactive) ? -1 : 0"
@@ -63,6 +64,7 @@ export default {
     'start-timer': null,
     'stop-timer': null,
     'edit-timer': null,
+    'reset-timer': null,
   },
 
   data () {
