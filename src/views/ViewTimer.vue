@@ -132,5 +132,9 @@ export default {
   flex-direction: column;
   align-items: center;
   position: relative;
+
+  & > *:not(:last-child) {
+    margin-bottom: 10px;
+  }
 }
 </style>

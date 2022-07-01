@@ -44,6 +44,5 @@ export default {
   background-color: $second-color;
   border: 1px solid $second-color;
   cursor: pointer;
-  margin: 10px;
 }
 </style>

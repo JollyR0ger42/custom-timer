@@ -19,7 +19,14 @@
       />
       <base-button
         :tabindex="(loading || inactive) ? -1 : 0"
+        label="Reset"
         type="transparent"
+        color="lime"
+      />
+      <base-button
+        :tabindex="(loading || inactive) ? -1 : 0"
+        type="transparent"
+        color="gold"
         label="Edit"
         @click="$emit('edit-timer', getNow())"
       />
@@ -72,7 +79,9 @@ export default {
     },
     timerState () {
       const {hours, minutes, seconds} = msToObj(this.localTimeLeft)
-      return `${this.padTime(hours)}:${this.padTime(minutes)}:${this.padTime(seconds)}`
+      if (hours < 0 || minutes < 0 || seconds < 0)
+        return `-${this.padTime(-hours)}:${this.padTime(-minutes)}:${this.padTime(-seconds)}`
+      else return `${this.padTime(hours)}:${this.padTime(minutes)}:${this.padTime(seconds)}`
     },
     initTimerState () {
       const {hours, minutes, seconds} = msToObj(this.initTimeLeft)
@@ -129,8 +138,8 @@ export default {
   font-size: 1.6rem;
   border: 2px solid $extra-color;
   padding: 5px;
-  margin: 5px;
   z-index: 0;
+  max-width: 100%;
 
   &__title {
     text-align: center;
@@ -141,11 +150,17 @@ export default {
 
   &__buttons {
     display: flex;
+    padding-top: 10px;
+
+    & > *:not(:last-child) {
+      margin-right: 8px;
+    }
   }
 
   &__timer {
     text-align: center;
     font-size: 2rem;
+    margin-bottom: 3px;
   }
 
   &__init-timer {
