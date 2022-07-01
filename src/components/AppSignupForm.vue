@@ -75,6 +75,11 @@ export default {
   &__buttons {
     display: flex;
     justify-content: center;
+    margin-top: 10px;
+
+    & > *:not(:last-child) {
+      margin-right: 8px;
+    }
   }
 }
 </style>

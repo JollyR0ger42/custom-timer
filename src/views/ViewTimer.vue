@@ -106,10 +106,10 @@ export default {
     },
     async updateTimerPopup (idx) {
       await this.stopTimer(idx, new Date().toUTCString())
-      this.$emit('toggle-popup', {name: 'popup-timer', props: {...this.timers[idx]}})
+      this.$emit('toggle-popup', {name: 'popup-timer', props: {...this.timers[idx], title: 'Edit timer:'}})
     },
     addTimerPopup () {
-      this.$emit('toggle-popup', {name: 'popup-timer'})
+      this.$emit('toggle-popup', {name: 'popup-timer', props:{title: 'Add new timer:'}})
     },
     getTimers () {
       this.loading = true

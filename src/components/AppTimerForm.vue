@@ -1,5 +1,6 @@
 <template>
   <div class="new-timer-form">
+    <h1>{{title}}</h1>
     <base-text-input
       label="Label:"
       placeholder="Timer label"
@@ -58,6 +59,7 @@ export default {
     name: String,
     initTimeLeft: [Number, String],
     id: [String, Number],
+    title: String,
   },
 
   data () {
@@ -114,6 +116,7 @@ export default {
   &__buttons {
     display: flex;
     justify-content: center;
+    margin-top: 10px;
 
     & > *:not(:last-child) {
       margin-right: 8px;
