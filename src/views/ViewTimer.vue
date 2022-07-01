@@ -85,7 +85,7 @@ export default {
       const target = this.timers[idx]
       target.started = new Date().toUTCString()
       target.stopped = null
-      Timer.updTimerById(target.id, {started: target.started})
+      Timer.updTimerById(target.id, {started: target.started, stopped: null})
         .then(timers => this.timers = timers)
         .finally(() => this.timersLoadingStat[idx] = false)
     },
