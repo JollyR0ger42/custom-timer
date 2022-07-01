@@ -14,9 +14,9 @@
         :loading="timersLoadingStat[idx]"
         :inactive="loading"
         @remove-timer="removeTimer(idx)"
-        @start-timer="(startedTime) => startTimer(idx, startedTime)"
-        @stop-timer="(stoppedTime) => stopTimer(idx, stoppedTime)"
-        @edit-timer="(stoppedTime) => updateTimerPopup(idx, stoppedTime)"
+        @start-timer="startTimer(idx)"
+        @stop-timer="stopTimer(idx)"
+        @edit-timer="updateTimerPopup(idx)"
       />
 
       <base-button
@@ -66,16 +66,17 @@ export default {
         .then((timers) => this.timers = timers)
         .finally(() => this.loading = false)
     },
-    startTimer (idx, startedTime) {
+    startTimer (idx) {
       this.timersLoadingStat[idx] = true
       const target = this.timers[idx]
-      target.started = startedTime.toUTCString()
+      target.started = new Date().toUTCString()
       target.stopped = null
       Timer.updTimerById(target.id, {started: target.started})
         .then(timers => this.timers = timers)
         .finally(() => this.timersLoadingStat[idx] = false)
     },
-    async stopTimer (idx, stoppedTime) {
+    async stopTimer (idx) {
+      const stoppedTime = new Date()
       this.timersLoadingStat[idx] = true
       const target = this.timers[idx]
       const startedTime = new Date(target.started)
@@ -89,8 +90,8 @@ export default {
         this.timersLoadingStat[idx] = false
       }
     },
-    async updateTimerPopup (idx, stoppedTime) {
-      await this.stopTimer(idx, stoppedTime)
+    async updateTimerPopup (idx) {
+      await this.stopTimer(idx, new Date().toUTCString())
       this.$emit('toggle-popup', {name: 'popup-timer', props: {...this.timers[idx]}})
     },
     addTimerPopup () {

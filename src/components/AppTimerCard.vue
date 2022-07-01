@@ -8,14 +8,14 @@
         :tabindex="(loading || inactive) ? -1 : 0"
         v-if="!isActive"
         label="Start"
-        @click="$emit('start-timer', getNow())"
+        @click="$emit('start-timer')"
         type="transparent"
       />
       <base-button
         :tabindex="(loading || inactive) ? -1 : 0"
         v-else
         label="Stop"
-        @click="$emit('stop-timer', getNow())"
+        @click="$emit('stop-timer')"
       />
       <base-button
         :tabindex="(loading || inactive) ? -1 : 0"
@@ -28,7 +28,7 @@
         type="transparent"
         color="gold"
         label="Edit"
-        @click="$emit('edit-timer', getNow())"
+        @click="$emit('edit-timer')"
       />
       <base-button
         :tabindex="(loading || inactive) ? -1 : 0"
@@ -60,9 +60,9 @@ export default {
 
   emits: {
     'remove-timer': null,
-    'start-timer': val => val instanceof Date,
-    'stop-timer': val => val instanceof Date,
-    'edit-timer': val => val instanceof Date,
+    'start-timer': null,
+    'stop-timer': null,
+    'edit-timer': null,
   },
 
   data () {
@@ -111,7 +111,6 @@ export default {
     padTime (num) {
       return num.toString().padStart(2, '0')
     },
-    getNow () { return new Date() },
     countTime () {
       const startedTime = new Date(this.started)
       const nowTime = new Date()
