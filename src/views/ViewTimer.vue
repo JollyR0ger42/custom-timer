@@ -33,7 +33,7 @@
 
 <script>
 import AppTimerCard from '@/components/AppTimerCard.vue'
-import Timer from '@/services/timer.service.js'
+import Timer from '@/services/timer.service'
 
 export default {
   name: 'ViewTimer',
