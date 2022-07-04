@@ -101,14 +101,11 @@ export default {
   background-color: $base-background;
   display: flex;
   flex-direction: column;
-  height: 100vh;
   overflow-y: hidden;
+  height: 100%;
 
   &__content {
     overflow-y: auto;
-    display: flex;
-    height: 100%;
-    align-items: stretch;
   }
 }
 </style>
