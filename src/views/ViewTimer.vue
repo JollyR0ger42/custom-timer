@@ -141,7 +141,9 @@ export default {
 
 <style lang="scss" scoped>
 .view-home {
-  padding: 5px;
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;

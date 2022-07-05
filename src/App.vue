@@ -109,6 +109,7 @@ export default {
   &__content {
     overflow-y: auto;
     height: 100%;
+    display: flex;
   }
 }
 </style>
