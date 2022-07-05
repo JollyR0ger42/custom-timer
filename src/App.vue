@@ -3,6 +3,7 @@
     class="app"
   >
     <app-header
+      v-if="showHeader"
       :user="user"
       @toggle-sidebar="showSidebar = !showSidebar"
       @toggle-popup="togglePopup"
@@ -59,7 +60,8 @@ export default {
     return {
       showSidebar: false,
       showPopup: false,
-      user: JSON.parse(localStorage.getItem('user'))
+      user: JSON.parse(localStorage.getItem('user')),
+      showHeader: !!process.env.VUE_APP_SERVER
     }
   },
 
@@ -106,6 +108,7 @@ export default {
 
   &__content {
     overflow-y: auto;
+    height: 100%;
   }
 }
 </style>
