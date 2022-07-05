@@ -8,6 +8,7 @@
 
     <template v-if="timers.length">
       <AppTimerCard
+        ref="cards"
         v-for="(timer, idx) in timers"
         :key="idx"
         v-bind="timer"
@@ -66,9 +67,10 @@ export default {
       try {
         const now = new Date().toUTCString()
         const timers = await Timer.updTimerById(target.id,
-          {stopped: null, started: now, timeLeft: target.initTimeLeft}
+          {stopped: now, started: null, timeLeft: target.initTimeLeft}
         )
         this.timers = timers
+        this.$refs.cards[idx]?.reset()
       } finally {
         this.timersLoadingStat[idx] = false
       }

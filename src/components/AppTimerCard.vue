@@ -126,6 +126,9 @@ export default {
     stopCountdown () {
       clearInterval(this.intervalId)
       this.intervalId = null
+    },
+    reset () {
+      this.localTimeLeft = this.timeLeft
     }
   }
 }
