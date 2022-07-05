@@ -2,6 +2,12 @@ const timers = JSON.parse(window.localStorage.getItem('timers') ?? '[]')
 let nextId = 1
 if (timers.length) nextId = Math.max(...timers.map(timer => +timer.id)) + 1
 
+const sortTimers = (a, b) => {
+  if (a.name > b.name) return 1
+  else if (a.name < b.name) return -1
+  else return +a.id - b.id
+}
+
 const newTimer = async (payload) => {
   const newTimer = {
     ...payload,
@@ -11,7 +17,7 @@ const newTimer = async (payload) => {
     id: nextId
   }
   timers.push(newTimer)
-  timers.sort((a,b) => a.id - b.id)
+  timers.sort(sortTimers)
   window.localStorage.setItem('timers', JSON.stringify(timers))
   nextId++
   return new Promise((res, rej) => res(timers))
