@@ -8,6 +8,11 @@ const sortTimers = (a, b) => {
   else return +a.id - b.id
 }
 
+const saveTimers = () => {
+  timers.sort(sortTimers)
+  window.localStorage.setItem('timers', JSON.stringify(timers))
+}
+
 const newTimer = async (payload) => {
   const newTimer = {
     ...payload,
@@ -17,8 +22,7 @@ const newTimer = async (payload) => {
     id: nextId
   }
   timers.push(newTimer)
-  timers.sort(sortTimers)
-  window.localStorage.setItem('timers', JSON.stringify(timers))
+  saveTimers()
   nextId++
   return new Promise((res, rej) => res(timers))
 }
@@ -30,7 +34,12 @@ const getTimers = async () => {
 }
 
 const removeTimerById = async (id) => {
-  return new Promise(() => console.log('resolve?'))
+  const removeIdx = timers.findIndex(timer => timer.id == id)
+  if (removeIdx >= 0) {
+    timers.splice(removeIdx, 1)
+    saveTimers()
+  }
+  return new Promise((res, rej) => res(timers))
 }
 
 const updTimerById = async (id, updFields) => {
