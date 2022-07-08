@@ -3,10 +3,10 @@
   <div class="app-header__left">
     <button
       v-if="true"
-      class="material-icons app-header__sidebar-button"
+      class="app-header__sidebar-button"
       @click="$emit('toggle-sidebar')"
     >
-      reorder
+      <icon-reorder class="app-header__sidebar-button__icon" />
     </button>
     <span class="app-header__title">
       Timer
@@ -77,7 +77,13 @@ export default {
 
   &__sidebar-button {
     margin-right: 10px;
-    color: var(--base-color);
+    padding: 0;
+    width: 30px;
+    height: 30px;
+
+    &__icon {
+      fill: var(--base-color);
+    }
   }
 
   &__title {
