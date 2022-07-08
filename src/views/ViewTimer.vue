@@ -95,19 +95,15 @@ export default {
       const stoppedTime = new Date()
       this.timersLoadingStat[idx] = true
       const target = this.timers[idx]
-      const startedTime = new Date(target.started)
-      const passedTime = stoppedTime - startedTime
-      target.stopped = stoppedTime.toUTCString()
-      target.timeLeft = target.timeLeft - passedTime
       try {
-        const timers = await Timer.updTimerById(target.id, {stopped: target.stopped})
+        const timers = await Timer.updTimerById(target.id, {stopped: stoppedTime.toUTCString()})
         this.timers = timers
       } finally {
         this.timersLoadingStat[idx] = false
       }
     },
     async updateTimerPopup (idx) {
-      await this.stopTimer(idx, new Date().toUTCString())
+      await this.stopTimer(idx)
       this.$emit('toggle-popup', {name: 'popup-timer', props: {...this.timers[idx], title: 'Edit timer:'}})
     },
     addTimerPopup () {

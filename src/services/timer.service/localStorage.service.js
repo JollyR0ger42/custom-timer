@@ -43,10 +43,13 @@ const removeTimerById = async (id) => {
 }
 
 const updTimerById = async (id, payload) => {
+  console.log(payload)
   const targetIdx = timers.findIndex(timer => timer.id == id)
   let timer = timers[targetIdx]
   const fields = {...payload}
-  if (payload?.stopped && !payload?.timeLeft) {
+  if (payload?.stopped && !payload?.timeLeft
+    && timer.started && !timer.stopped
+  ) {
     const timePassed = new Date(payload.stopped) - new Date(timer.started)
     fields.timeLeft = timer.timeLeft - timePassed
   }
