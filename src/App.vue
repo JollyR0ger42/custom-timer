@@ -95,7 +95,8 @@ export default {
       else console.log('Http error not handled:', error)
     },
     sendNotification (payload) {
-      notif.send(payload)
+      const notifEnabled = JSON.parse(localStorage.getItem('notifications'))
+      if (notifEnabled) notif.send(payload)
     }
   },
 }

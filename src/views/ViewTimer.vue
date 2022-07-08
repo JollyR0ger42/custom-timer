@@ -141,9 +141,11 @@ export default {
     async timerDone (idx) {
       const target = () => this.timers[idx]
       if (!target().runOutAt) await this.updateTimer({id: target().id, runOutAt: new Date().toUTCString()})
+      const time = new Date(target().runOutAt).toTimeString()
+      const date = new Date(target().runOutAt).toDateString()
       const notification = {
-        title: `Timer: ${target().name ?? '(no-name)'}`,
-        body: `Run out at ${target().runOutAt}`
+        title: `Timer: ${target().name ?? '(no-name)'} run out at:`,
+        body: `${time + ' | ' + date}`
       }
       this.$emit('send-notif', notification)
     }
