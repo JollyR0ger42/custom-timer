@@ -43,7 +43,6 @@ const removeTimerById = async (id) => {
 }
 
 const updTimerById = async (id, payload) => {
-  console.log(payload)
   const targetIdx = timers.findIndex(timer => timer.id == id)
   let timer = timers[targetIdx]
   const fields = {...payload}
@@ -57,6 +56,7 @@ const updTimerById = async (id, payload) => {
     fields.started = new Date().toUTCString()
     fields.stopped = new Date().toUTCString()
     fields.timeLeft = payload.initTimeLeft
+    fields.runOutAt = null
   }
   timers[targetIdx] = {...timer, ...fields}
   saveTimers()

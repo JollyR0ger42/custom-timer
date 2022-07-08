@@ -56,7 +56,8 @@ export default {
     started: String,
     stopped: String,
     loading: Boolean,
-    inactive: Boolean
+    inactive: Boolean,
+    runOutAt: String,
   },
 
   emits: {
@@ -65,12 +66,14 @@ export default {
     'stop-timer': null,
     'edit-timer': null,
     'reset-timer': null,
+    'timer-done': null
   },
 
   data () {
     return {
       intervalId: null,
-      localTimeLeft: null
+      localTimeLeft: null,
+      timerDone: false,
     }
   },
 
@@ -118,6 +121,7 @@ export default {
       const nowTime = new Date()
       const passedTime = nowTime - startedTime
       this.localTimeLeft = +this.timeLeft - passedTime
+      this.checkStatus()
     },
     startCountdown () {
       this.countTime()
@@ -129,6 +133,13 @@ export default {
     },
     reset () {
       this.localTimeLeft = this.timeLeft
+      this.timerDone = false
+    },
+    checkStatus () {
+      if (!this.timerDone && this.localTimeLeft < 0) {
+        this.$emit('timer-done')
+        this.timerDone = true
+      }
     }
   }
 }

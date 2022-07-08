@@ -19,6 +19,7 @@
         @stop-timer="stopTimer(idx)"
         @edit-timer="updateTimerPopup(idx)"
         @reset-timer="resetTimer(idx)"
+        @timer-done="timerDone(idx)"
       />
 
       <base-button
@@ -45,7 +46,8 @@ export default {
 
   emits: {
     'toggle-popup': Object,
-    'handle-http-error': Object
+    'handle-http-error': Object,
+    'send-notif': Object,
   },
 
   data () {
@@ -66,8 +68,12 @@ export default {
       const target = this.timers[idx]
       try {
         const now = new Date().toUTCString()
-        const timers = await Timer.updTimerById(target.id,
-          {stopped: now, started: null, timeLeft: target.initTimeLeft}
+        const timers = await Timer.updTimerById(target.id, {
+          stopped: now,
+          started: null,
+          timeLeft: target.initTimeLeft,
+          runOutAt: null,
+        }
         )
         this.timers = timers
         this.$refs.cards[idx]?.reset()
@@ -126,12 +132,20 @@ export default {
         .finally(() => this.loading = false)
       this.$emit('toggle-popup')
     },
-    updateTimer (timer) {
+    async updateTimer (timer) {
       this.loading = true
-      Timer.updTimerById(timer.id, timer)
-        .then(timers => this.timers = timers)
-        .finally(() => this.loading = false)
+      this.timers = await Timer.updTimerById(timer.id, timer)
+      this.loading = false
       this.$emit('toggle-popup')
+    },
+    async timerDone (idx) {
+      const target = () => this.timers[idx]
+      if (!target().runOutAt) await this.updateTimer({id: target().id, runOutAt: new Date().toUTCString()})
+      const notification = {
+        title: `Timer: ${target().name ?? '(no-name)'}`,
+        body: `Run out at ${target().runOutAt}`
+      }
+      this.$emit('send-notif', notification)
     }
   }
 }

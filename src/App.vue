@@ -20,6 +20,7 @@
         class="app__view"
         @toggle-popup="togglePopup"
         @handle-http-error="handleHttpError"
+        @send-notif="sendNotification"
         v-slot="{Component}"
       >
         <component ref="routerRef" :is="Component" />
@@ -45,6 +46,7 @@
 
 <script>
 import getPopup from '@/services/popup.service.js'
+import notif from '@/services/notification.service.js'
 
 export default {
   name: 'App',
@@ -91,6 +93,9 @@ export default {
       if (error?.status === 400) this.togglePopup({name: 'popup-info', props: {title: 'Error', body: error?.error}})
       else if (error?.status === 401) this.togglePopup({name: 'popup-auth'})
       else console.log('Http error not handled:', error)
+    },
+    sendNotification (payload) {
+      notif.send(payload)
     }
   },
 }

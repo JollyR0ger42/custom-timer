@@ -5,7 +5,7 @@ const askPermission = () => {
   return new Promise()
 }
 
-const send = (title, body) => {
+const send = ({title, body}) => {
   new Notification(title, {body})
 }
 
