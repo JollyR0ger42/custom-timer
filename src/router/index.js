@@ -6,11 +6,6 @@ const routes = [
     path: '/',
     name: 'ViewTimer',
     component: ViewTimer
-  },
-  {
-    path: '/settings',
-    name: 'ViewSettings',
-    component: () => import('../views/ViewSettings.vue')
   }
 ]
 

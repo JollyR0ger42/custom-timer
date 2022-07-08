@@ -3,19 +3,13 @@
     class="app"
   >
     <app-header
-      v-if="showHeader"
+      v-if="!showHeader"
       :user="user"
-      @toggle-sidebar="showSidebar = !showSidebar"
       @toggle-popup="togglePopup"
       @popup-event="handlePopupEvent"
     ></app-header>
 
     <div class="app__content">
-      <app-sidebar
-        v-if="showSidebar"
-        class="app__sidebar"
-      ></app-sidebar>
-
       <router-view
         class="app__view"
         @toggle-popup="togglePopup"
@@ -58,7 +52,6 @@ export default {
 
   data () {
     return {
-      showSidebar: false,
       showPopup: false,
       user: JSON.parse(localStorage.getItem('user')),
       showHeader: !!process.env.VUE_APP_SERVER
