@@ -4,7 +4,7 @@
     <button
       v-if="true"
       class="app-header__sidebar-button"
-      @click="$emit('toggle-sidebar')"
+      @click="$emit('toggle-settings')"
     >
       <icon-reorder class="app-header__sidebar-button__icon" />
     </button>
@@ -13,26 +13,22 @@
     </span>
   </div>
 
-  <div
-    v-if="user && user.id"
-    class="app-header__right"
-  >
-    <span class="app-header__username">
-      {{user.id}}
-    </span>
-    <button
-      class="app-header__login"
-      @click="authLogout"
-    >Logout</button>
-  </div>
-  <div
-    v-else
-    class="app-header__right"
-  >
-    <button
-      class="app-header__login"
-      @click="authPopup('popup-auth')"
-    >Sign up</button>
+  <div v-if="showAuth" class="app-header__auth">
+    <div v-if="user && user.id">
+      <span class="app-header__username">
+        {{user.id}}
+      </span>
+      <button
+        class="app-header__login"
+        @click="authLogout"
+      >Logout</button>
+    </div>
+    <div v-else>
+      <button
+        class="app-header__login"
+        @click="authPopup('popup-auth')"
+      >Sign up</button>
+    </div>
   </div>
 
 </div>
@@ -47,9 +43,15 @@ export default {
   },
 
   emits: {
-    'toggle-sidebar': null,
+    'toggle-settings': null,
     'toggle-popup': Object,
     'popup-event': Object
+  },
+
+  data () {
+    return {
+      showAuth: !!process.env.VUE_APP_SERVER
+    }
   },
 
   methods: {

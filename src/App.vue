@@ -3,11 +3,16 @@
     class="app"
   >
     <app-header
-      v-if="!showHeader"
       :user="user"
       @toggle-popup="togglePopup"
       @popup-event="handlePopupEvent"
+      @toggle-settings="showSettings = !showSettings"
     ></app-header>
+
+    <app-settings
+      v-if="showSettings"
+      class="app__settings"
+    />
 
     <div class="app__content">
       <router-view
@@ -54,7 +59,7 @@ export default {
     return {
       showPopup: false,
       user: JSON.parse(localStorage.getItem('user')),
-      showHeader: !!process.env.VUE_APP_SERVER
+      showSettings: false,
     }
   },
 
