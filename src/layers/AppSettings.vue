@@ -2,14 +2,15 @@
   <div class="app-settings">
     <h4  class="app-settings__title">Settings</h4>
 
-    <div>
-      <input
-        type="checkbox"
-        v-model="notifEnabled"
-        id="notificationCheck"
-        @change="atNotifChange"
-      >
-      <label for="notificationCheck">Enable notification.</label>
+    <div
+      @click="atNotifChange"
+      class="app-settings__row"
+    >
+      <base-checkbox
+        :checked="notifEnabled"
+        class="app-settings__checkbox"
+      />
+      <label>Enable notification.</label>
     </div>
   </div>
 </template>
@@ -22,13 +23,18 @@ export default {
 
   data () {
     return {
-      notifEnabled: localStorage.getItem('notifications')
+      notifEnabled: JSON.parse(localStorage.getItem('notifications'))
     }
   },
 
   methods: {
     atNotifChange () {
-      localStorage.setItem('notifications', this.notifEnabled)
+      this.notifEnabled = !this.notifEnabled
+      // if (notif.isPermited()) {
+      //   localStorage.setItem('notifications', this.notifEnabled)
+      // } else {
+      //   notif.askPermission()
+      // }
     }
   }
 }
@@ -42,6 +48,17 @@ export default {
 
   &__title {
     margin-bottom: 8px;
+    display: inline-block;
+  }
+
+  &__row {
+    display: flex;
+    align-items: center;
+  }
+
+  &__checkbox {
+    font-size: 18px;
+    margin-right: 5px;
   }
 }
 </style>
