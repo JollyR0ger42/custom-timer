@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import notif from '@/services/notification.service.js'
+
 export default {
   name: 'AppSettings',
 

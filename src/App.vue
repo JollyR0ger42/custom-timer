@@ -91,7 +91,7 @@ export default {
       else if (error?.status === 401) this.togglePopup({name: 'popup-auth'})
       else console.log('Http error not handled:', error)
     }
-  }
+  },
 }
 </script>
 
