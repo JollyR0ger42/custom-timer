@@ -1,7 +1,8 @@
 const askPermission = () => {
   if (window.Notification.permission !== 'granted') {
-    window.Notification.requestPermission()
+    return window.Notification.requestPermission()
   }
+  return new Promise()
 }
 
 const send = (title, body) => {

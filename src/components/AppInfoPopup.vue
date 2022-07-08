@@ -1,7 +1,7 @@
 <template>
   <div class="info-popup">
-    <div class="info-popup__title">Error</div>
-    <div class="info-popup__body">{{error.error}}</div>
+    <div class="info-popup__title">{{title}}</div>
+    <div class="info-popup__body">{{body}}</div>
     <base-button
       label="Close"
       @click="$emit('toggle-popup')"
@@ -14,7 +14,8 @@ export default {
   name: 'AppInfoPopup',
 
   props: {
-    error: Object
+    title: String,
+    body: String,
   },
 
   emits: {

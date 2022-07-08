@@ -27,14 +27,22 @@ export default {
     }
   },
 
+  emits: {
+    'toggle-popup': Object
+  },
+
   methods: {
-    atNotifChange () {
-      this.notifEnabled = !this.notifEnabled
-      // if (notif.isPermited()) {
-      //   localStorage.setItem('notifications', this.notifEnabled)
-      // } else {
-      //   notif.askPermission()
-      // }
+    async atNotifChange () {
+      let nextState = !this.notifEnabled
+      if (nextState && !notif.isPermited()) {
+        const permission = await notif.askPermission()
+        if (permission !== 'granted') {
+          nextState = this.notifEnabled
+          this.$emit('toggle-popup', {name: 'popup-info', props: {title: 'Error', body: 'Enable notifications in your app.'}})
+        }
+      }
+      this.notifEnabled = nextState
+      localStorage.setItem('notifications', this.notifEnabled)
     }
   }
 }
